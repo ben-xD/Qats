@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Qats</string>
+    <string name="title_question_fragment">Question Fragment</string>
 </resources>

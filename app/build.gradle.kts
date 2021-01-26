@@ -47,6 +47,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":common:ui"))
+
     // Refactor versions into Dependencies.kt before creating a new module
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
@@ -54,6 +56,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     testImplementation("junit:junit:${Libs.junit}")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
@@ -80,7 +83,5 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-rxjava2:${Libs.compose}")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Libs.compose}")
 
-    // --- Network ---
-    implementation("com.squareup.retrofit2:retrofit:${Libs.retrofit}")
-    implementation("com.google.code.gson:gson:${Libs.gson}")
+
 }

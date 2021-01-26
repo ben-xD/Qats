@@ -1,2 +1,2 @@
-include(":app", ":common:network")
+include(":app", ":common:network", ":common:ui")
 rootProject.name = "Qats"

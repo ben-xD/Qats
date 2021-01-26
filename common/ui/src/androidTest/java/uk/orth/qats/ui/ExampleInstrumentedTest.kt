@@ -1,4 +1,4 @@
-package uk.orth.qats.network
+package uk.orth.qats.ui
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("uk.orth.qats.network", appContext.packageName)
+        assertEquals("uk.orth.qats.ui", appContext.packageName)
     }
 }
