@@ -15,10 +15,10 @@ object Versions {
     const val gradle = "7.0.0-alpha04"
     const val kotlin = "1.4.21"
     const val hiltAndroidGradlePlugin = "2.28-alpha"
-    const val hilt = "2.28-alpha"
 }
 
 object Libs {
+    const val hilt = "2.28-alpha"
     const val nav = "2.3.2" // https://developer.android.com/jetpack/androidx/releases/navigation
     const val nav_compose = "1.0.0-alpha05"
     const val compose = "1.0.0-alpha10" // https://developer.android.com/jetpack/androidx/releases/compose

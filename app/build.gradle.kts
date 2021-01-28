@@ -48,6 +48,7 @@ android {
 
 dependencies {
     implementation(project(":common:ui"))
+    implementation(project(":common:model"))
 
     // Refactor versions into Dependencies.kt before creating a new module
     implementation("androidx.core:core-ktx:1.3.2")
@@ -62,8 +63,8 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 
     // --- Hilt ---
-    implementation("com.google.dagger:hilt-android:${Versions.hilt}")
-    kapt("com.google.dagger:hilt-android-compiler:${Versions.hilt}")
+    implementation("com.google.dagger:hilt-android:${Libs.hilt}")
+    kapt("com.google.dagger:hilt-android-compiler:${Libs.hilt}")
 
     // --- Jetpack Navigation ---
     implementation("androidx.navigation:navigation-fragment-ktx:${Libs.nav}")
@@ -83,5 +84,7 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-rxjava2:${Libs.compose}")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Libs.compose}")
 
-
+    // --- Images ---
+    implementation("com.github.bumptech.glide:glide:4.11.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.11.0")
 }
