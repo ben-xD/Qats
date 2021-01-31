@@ -1,4 +1,4 @@
-package uk.orth.qats.ui
+package uk.orth.qats.quiz
 
 import org.junit.Test
 

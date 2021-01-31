@@ -3,17 +3,17 @@
     <data>
         <variable
             name="QuestionAnswer"
-            type="uk.orth.qats.models.QuestionAnswer" />
+            type="uk.orth.qats.models.Question" />
+        <variable
+            name="SelectedAnswer"
+            type="uk.orth.qats.models.Question" />
     </data>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.AnswerFragment">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@{QuestionAnswer.correctAnswer}" />
+        tools:context=".quiz.main.AnswerFragment">
+<!--TODO Add UI here based on correct or wrong)-->
 
     </FrameLayout>
 </layout>

@@ -12,17 +12,21 @@ object AppConfig {
 }
 
 object Versions {
-    const val gradle = "7.0.0-alpha04"
+    const val gradle = "7.0.0-alpha05"
     const val kotlin = "1.4.21"
-    const val hiltAndroidGradlePlugin = "2.28-alpha"
+    const val dagger = "2.31.2"
+    const val hilt = "2.31.2-alpha"
 }
 
 object Libs {
-    const val hilt = "2.28-alpha"
-    const val nav = "2.3.2" // https://developer.android.com/jetpack/androidx/releases/navigation
+    const val hilt = "1.0.0-alpha03" // https://developer.android.com/jetpack/androidx/releases/hilt
+    const val nav = "2.3.3" // https://developer.android.com/jetpack/androidx/releases/navigation
     const val nav_compose = "1.0.0-alpha05"
     const val compose = "1.0.0-alpha10" // https://developer.android.com/jetpack/androidx/releases/compose
     const val junit = "4.13.1"
     const val retrofit = "2.9.0"
     const val gson = "2.8.6"
+    const val timber = "4.7.1"
+    const val fragment = "1.2.5"
+    const val coroutines = "1.3.9"
 }

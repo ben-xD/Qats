@@ -31,6 +31,8 @@ android {
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_1_8)
         targetCompatibility(JavaVersion.VERSION_1_8)
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -39,9 +41,9 @@ android {
     buildFeatures {
         dataBinding = true
         compose = true
+        viewBinding = true
     }
     composeOptions {
-        kotlinCompilerVersion = "1.4.21"
         kotlinCompilerExtensionVersion = "1.0.0-alpha10"
     }
 }
@@ -49,9 +51,13 @@ android {
 dependencies {
     implementation(project(":common:ui"))
     implementation(project(":common:model"))
+    implementation(project(":common:repository"))
 
     // Refactor versions into Dependencies.kt before creating a new module
     implementation("androidx.core:core-ktx:1.3.2")
+
+    implementation("androidx.fragment:fragment-ktx:${Libs.fragment}")
+    debugImplementation("androidx.fragment:fragment-testing:${Libs.fragment}")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.2.1")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
@@ -63,13 +69,16 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 
     // --- Hilt ---
-    implementation("com.google.dagger:hilt-android:${Libs.hilt}")
-    kapt("com.google.dagger:hilt-android-compiler:${Libs.hilt}")
+    implementation("com.google.dagger:dagger:${Versions.dagger}")
+    implementation("com.google.dagger:hilt-android:${Versions.hilt}")
+    kapt("com.google.dagger:hilt-android-compiler:${Versions.hilt}")
+    implementation("androidx.hilt:hilt-navigation-fragment:${Libs.hilt}")
+    kapt("androidx.hilt:hilt-compiler:${Libs.hilt}")
 
     // --- Jetpack Navigation ---
     implementation("androidx.navigation:navigation-fragment-ktx:${Libs.nav}")
     implementation("androidx.navigation:navigation-ui-ktx:${Libs.nav}")
-    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.3.2")
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:${Libs.nav}")
     androidTestImplementation("androidx.navigation:navigation-testing:${Libs.nav}")
     implementation("androidx.navigation:navigation-compose:${Libs.nav_compose}")
 
@@ -87,4 +96,7 @@ dependencies {
     // --- Images ---
     implementation("com.github.bumptech.glide:glide:4.11.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.11.0")
+
+    // --- Logging ---
+    implementation("com.jakewharton.timber:timber:${Libs.timber}")
 }
