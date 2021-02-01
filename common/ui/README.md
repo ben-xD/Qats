@@ -1,0 +1,1 @@
+Contains UI resources common to feature modules.

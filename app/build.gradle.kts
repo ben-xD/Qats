@@ -59,7 +59,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:${Libs.fragment}")
     debugImplementation("androidx.fragment:fragment-testing:${Libs.fragment}")
     implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("com.google.android.material:material:1.2.1")
+    implementation("com.google.android.material:material:${Libs.material}")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")

@@ -7,7 +7,6 @@ android {
     buildToolsVersion(AppConfig.buildToolsVersion)
 
     defaultConfig {
-//        applicationId("uk.orth.qats")
         minSdkVersion(AppConfig.minSdkVersion)
         targetSdkVersion(AppConfig.targetSdkVersion)
         versionCode(AppConfig.versionCode)
@@ -15,4 +14,8 @@ android {
 
         testInstrumentationRunner("androidx.test.runner.AndroidJUnitRunner")
     }
+}
+
+dependencies {
+    implementation("com.google.android.material:material:${Libs.material}")
 }
