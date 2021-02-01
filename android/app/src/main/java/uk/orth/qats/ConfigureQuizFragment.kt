@@ -38,12 +38,10 @@ class ConfigureQuizFragment : Fragment() {
             R.id.radio_duration_30s -> 30
             else -> 0
         }
-        val questionQuantity = binding.edittextQuestionCount.text.toString()
+        val questionQuantity =
+            binding.edittextQuestionCount.text.toString().toIntOrNull() ?: DEFAULT_QUESTION_QUANTITY
         lifecycleScope.launch(Dispatchers.IO) {
-            model.startQuiz(
-                questionQuantity.toIntOrNull() ?: DEFAULT_QUESTION_QUANTITY,
-                timePerQuestionInSeconds
-            )
+            model.startQuiz(questionQuantity, timePerQuestionInSeconds)
             model.quiz?.let {
                 navController.navigate(ConfigureQuizFragmentDirections.actionConfigureQuizFragmentToQuestionFragment())
             }

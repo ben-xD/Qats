@@ -49,8 +49,8 @@ class QuestionFragment : Fragment() {
             add<QuizBottomControlFragment>(R.id.bottom_fragment_container)
         }
         MainScope().launch {
-            val (question, catImage) = model.getNextQuestion()
-            binding.question = question
+//            val (question, catImage) = model.getNextQuestion()
+//            binding.question = question
         }
         return binding.root
     }

@@ -18,7 +18,7 @@ interface QuizAPI {
     suspend fun answerQuestion(id: String, @Body answer: Answer): Response<Question>
 
     @POST("/quiz/{id}")
-    suspend fun joinQuiz(@Path("id") id: String): Response<Quiz> // TODO return result to user only once the user joins the game
+    suspend fun joinQuiz(@Path("id") id: String): Response<Quiz> // TODO server return result to user only once the user joins the game
 
     @POST("/quiz")
     suspend fun createQuiz(@Body quizMode: QuizMode): Response<Quiz>

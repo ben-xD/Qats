@@ -3,10 +3,12 @@ package uk.orth.qats.repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import uk.orth.qats.models.Answer
 import uk.orth.qats.models.Question
 import uk.orth.qats.models.Quiz
 import uk.orth.qats.models.QuizMode
+import uk.orth.qats.repository.utilities.EnumFactory
 import uk.orth.qats.repository.utilities.createResult
 import javax.inject.Inject
 
@@ -17,6 +19,8 @@ class QuizService @Inject constructor() {
     init {
         retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(EnumFactory())
             .build()
         api = retrofit.create(QuizAPI::class.java)
     }
