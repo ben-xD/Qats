@@ -1,5 +1,7 @@
 package uk.orth.qats.repository
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import uk.orth.qats.models.Answer
 import uk.orth.qats.models.Question
@@ -19,18 +21,21 @@ class QuizService @Inject constructor() {
         api = retrofit.create(QuizAPI::class.java)
     }
 
-    suspend fun startQuiz(questionQuantity: Int = 0, timePerQuestionInSeconds: Int = 0): Result<Quiz> {
+    suspend fun startQuiz(
+        questionQuantity: Int = 0,
+        timePerQuestionInSeconds: Int = 0
+    ): Result<Quiz> {
         val mode = QuizMode(questionQuantity, timePerQuestionInSeconds)
-        return api.createQuiz(mode).createResult()
+        return withContext(Dispatchers.IO) { api.createQuiz(mode).createResult() }
     }
 
     suspend fun joinQuiz(quizID: String): Result<Quiz> {
-        return api.joinQuiz(quizID).createResult()
+        return withContext(Dispatchers.IO) { api.joinQuiz(quizID).createResult() }
     }
 
     // If timed, FCMs will send the message instead.
     suspend fun getQuestion(quiz: Quiz): Result<Question> {
-        return api.getQuestion(quiz.code).createResult()
+        return withContext(Dispatchers.IO) { api.getQuestion(quiz.code).createResult() }
     }
 
     /**

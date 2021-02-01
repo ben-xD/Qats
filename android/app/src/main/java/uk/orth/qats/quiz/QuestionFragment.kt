@@ -13,10 +13,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import uk.orth.qats.R
 import uk.orth.qats.databinding.FragmentQuestionBinding
 import uk.orth.qats.models.CatImage
 import uk.orth.qats.models.Question
-import uk.orth.qats.R
 
 @AndroidEntryPoint
 class QuestionFragment : Fragment() {
@@ -30,9 +30,10 @@ class QuestionFragment : Fragment() {
         arguments?.apply {
             val questionNumber = getInt(QUESTION_NUMBER_KEY)
             GlobalScope.launch {
-                val result = model.getQuestion(questionNumber)
-                question.value = result.first
-                catImage.value = result.second
+                model.getQuestion(questionNumber)?.apply {
+                    question.value = first
+                    catImage.value = second
+                }
             }
         }
     }

@@ -47,24 +47,24 @@
         app:layout_constraintBottom_toTopOf="@+id/start">
 
         <RadioButton
-            android:id="@+id/radio_1"
+            android:id="@+id/radio_duration_untimed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="Untimed"
-            app:layout_constraintBottom_toTopOf="@+id/radio_2"
+            app:layout_constraintBottom_toTopOf="@+id/radio_duration_10s"
             app:layout_constraintStart_toStartOf="parent" />
 
         <RadioButton
-            android:id="@+id/radio_2"
+            android:id="@+id/radio_duration_10s"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Timed (10s)"
-            app:layout_constraintBottom_toTopOf="@+id/radio_3"
+            app:layout_constraintBottom_toTopOf="@+id/radio_duration_30s"
             app:layout_constraintStart_toStartOf="parent" />
 
         <RadioButton
-            android:id="@+id/radio_3"
+            android:id="@+id/radio_duration_30s"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Timed (30s)"

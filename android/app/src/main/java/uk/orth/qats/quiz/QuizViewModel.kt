@@ -20,7 +20,8 @@ class QuizViewModel @Inject constructor(
     private val catImagesService: CatImagesService,
     private val quizService: QuizService,
 ) : ViewModel() {
-    private val quiz: Quiz? = null
+    var quiz: Quiz? = null
+        private set
     private var catImages = mutableListOf<CatImage>()
     var currentQuestionNumber: Int = 0
     private val questionByNumber = mutableMapOf<Int, Question>()
@@ -32,8 +33,13 @@ class QuizViewModel @Inject constructor(
 //        }
     }
 
-    suspend fun startQuiz() {
-        quizService.startQuiz()
+    suspend fun startQuiz(questionQuantity: Int, timePerQuestionInSeconds: Int) {
+        viewModelScope.launch {
+            when (val result = quizService.startQuiz(questionQuantity, timePerQuestionInSeconds)) {
+                is Result.Success -> quiz = result.data
+                is Result.Error -> status.postValue("Unable to start quiz.")
+            }
+        }
     }
 
     // a live data for current question
@@ -42,30 +48,41 @@ class QuizViewModel @Inject constructor(
         currentQuestionNumber += 1
         // TODO make network request
 //        return getQuestion(currentQuestionNumber)
-        val answerOptions = MultipleChoiceTextAnswerOption(listOf("Hello", "Good bye", "3rd answer", "Fourth answer"))
+        val answerOptions = MultipleChoiceTextAnswerOption(
+            listOf(
+                "Hello",
+                "Good bye",
+                "3rd answer",
+                "Fourth answer"
+            )
+        )
         return Pair(
             Question(UUID.randomUUID(), "Example Question", answerOptions),
             catImages[currentQuestionNumber - 1]
         )
     }
 
-    suspend fun getQuestion(number: Int): Pair<Question, CatImage> {
+    suspend fun getQuestion(number: Int): Pair<Question, CatImage>? {
         if (quiz == null) {
             throw IllegalStateException("User must be in a quiz to get a question.")
         }
-        val catImage = catImages[number]
-        if (catImages.size > currentQuestionNumber - MINIMUM_IMAGE_BUFFER_SIZE) {
-            prefetchCatImages(currentQuestionNumber + MAXIMUM_IMAGE_BUFFER_SIZE)
-        }
-        if (number !in questionByNumber.keys) {
-            when (val response = quizService.getQuestion(quiz)) {
-                is Result.Success -> questionByNumber[number] = response.data
-                is Result.Error -> status.postValue("Unable to fetch Question #${number}.")
+        quiz?.let {
+            val catImage = catImages[number]
+            if (catImages.size > currentQuestionNumber - MINIMUM_IMAGE_BUFFER_SIZE) {
+                prefetchCatImages(currentQuestionNumber + MAXIMUM_IMAGE_BUFFER_SIZE)
             }
+            if (number !in questionByNumber.keys) {
+                when (val response = quizService.getQuestion(it)) {
+                    is Result.Success -> {
+                        questionByNumber[number] = response.data
+                        return Pair(questionByNumber[number]!!, catImage)
+                    }
+                    is Result.Error -> status.postValue("Unable to fetch Question #${number}.")
+                }
 
+            }
         }
-
-        return Pair(questionByNumber[number]!!, catImage)
+        return null
     }
 
     /**
@@ -81,7 +98,11 @@ class QuizViewModel @Inject constructor(
     suspend fun getRandomCatImagesWithoutGifAndHats(quantity: Int): List<CatImage> {
         return withContext(Dispatchers.IO) {
             when (val response = catImagesService.getCatImages(quantity, order = RANDOM)) {
-                is Result.Success -> response.data.filter { !(it.imageType == ImageType.GIF && !it.categories.contains("hats")) }
+                is Result.Success -> response.data.filter {
+                    !(it.imageType == ImageType.GIF && !it.categories.contains(
+                        "hats"
+                    ))
+                }
                 is Result.Error -> {
                     status.postValue("Unable to fetch images")
                     // TODO should i show an error here? edge case/ network is down
