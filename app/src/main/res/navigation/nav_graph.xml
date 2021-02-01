@@ -12,19 +12,43 @@
         tools:layout="@layout/fragment_start" >
         <action
             android:id="@+id/action_startFragment_to_configureQuizFragment"
-            app:destination="@id/configureQuizFragment" />
+            app:destination="@id/configureQuizFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
     <fragment
         android:id="@+id/questionFragment"
         android:name="uk.orth.qats.quiz.QuestionFragment"
-        android:label="QuestionFragment" />
+        android:label="QuestionFragment" >
+        <action
+            android:id="@+id/action_questionFragment_to_answerFragment"
+            app:destination="@id/answerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/answerFragment"
         android:name="uk.orth.qats.quiz.AnswerFragment"
-        android:label="AnswerFragment" />
+        android:label="AnswerFragment" >
+        <action
+            android:id="@+id/action_answerFragment_to_questionFragment"
+            app:destination="@id/questionFragment" />
+        <action
+            android:id="@+id/action_answerFragment_to_finishFragment"
+            app:destination="@id/finishFragment" />
+    </fragment>
     <fragment
         android:id="@+id/configureQuizFragment"
         android:name="uk.orth.qats.ConfigureQuizFragment"
         android:label="fragment_configure_quiz"
-        tools:layout="@layout/fragment_configure_quiz" />
+        tools:layout="@layout/fragment_configure_quiz" >
+        <action
+            android:id="@+id/action_configureQuizFragment_to_questionFragment"
+            app:destination="@id/questionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/finishFragment"
+        android:name="uk.orth.qats.FinishFragment"
+        android:label="fragment_finish"
+        tools:layout="@layout/fragment_finish" />
 </navigation>

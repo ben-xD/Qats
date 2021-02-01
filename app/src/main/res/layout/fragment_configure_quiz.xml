@@ -6,11 +6,44 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     tools:context=".ConfigureQuizFragment">
+    <TextView
+        android:layout_width="wrap_content"
+        style="@style/Theme.Qats.SubtitleText"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Configure your Quiz"/>
 
+    <TextView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/edittext_question_count"
+        android:id="@+id/label_question_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/number_of_questions" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext_question_count"
+        app:layout_constraintBottom_toTopOf="@+id/label_duration"
+        android:hint="10"
+        android:inputType="number"
+        android:layout_marginBottom="32dp"
+        />
+
+    <TextView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/radios_duration"
+        android:id="@+id/label_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode" />
     <RadioGroup
+        android:id="@+id/radios_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/start">
 
         <RadioButton

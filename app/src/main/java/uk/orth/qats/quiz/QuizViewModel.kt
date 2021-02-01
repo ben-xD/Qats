@@ -32,6 +32,10 @@ class QuizViewModel @Inject constructor(
 //        }
     }
 
+    suspend fun startQuiz() {
+        quizService.startQuiz()
+    }
+
     // a live data for current question
     // make network request for answer separately (to prevent cheaters network MITM)
     suspend fun getNextQuestion(): Pair<Question, CatImage> {

@@ -14,6 +14,7 @@
         android:theme="@style/Theme.Qats">
         <activity
             android:name=".quiz.AppActivity"
+            android:hardwareAccelerated="true"
             android:label="@string/title_activity_start_quiz"
             android:theme="@style/Theme.Qats.NoActionBar">
             <intent-filter>
