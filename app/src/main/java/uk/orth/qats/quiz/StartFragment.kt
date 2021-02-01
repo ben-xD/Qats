@@ -6,9 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import uk.orth.qats.R
 import uk.orth.qats.databinding.FragmentStartBinding
 
 class StartFragment : Fragment() {
+    private val navController by lazy { findNavController() }
     private lateinit var binding: FragmentStartBinding
     private val model: QuizViewModel by activityViewModels()
 
@@ -24,7 +28,8 @@ class StartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.singleplayer.setOnClickListener {
-            model.showSinglePlayerSetup()
+            navController.navigate(StartFragmentDirections.actionStartFragmentToConfigureQuizFragment())
+//            model.showSinglePlayerSetup()
         }
     }
 }

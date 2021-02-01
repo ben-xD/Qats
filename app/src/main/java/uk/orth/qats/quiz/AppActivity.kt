@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.navigation.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -15,6 +16,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AppActivity : AppCompatActivity() {
+    private val navController by lazy { findNavController(R.id.nav_host_fragment) }
     private val model: QuizViewModel by viewModels()
     private lateinit var binding: ActivityAppBinding
     @Inject lateinit var quizHandlers: QuizHandlers
@@ -25,21 +27,6 @@ class AppActivity : AppCompatActivity() {
         supportActionBar?.hide()
         binding = ActivityAppBinding.inflate(layoutInflater)
         binding.handler = quizHandlers
-
-//        binding.buttonNext.setOnClickListener {
-//            Timber.d("Clicking next")
-//            supportFragmentManager.commit {
-//                setReorderingAllowed(true)
-//                add<QuestionFragment>(R.id.fragment_container)
-//            }
-//        }
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<StartFragment>(R.id.fragment_container)
-            }
-        }
 
         model.status.observe(this, {
             it?.let {
@@ -54,11 +41,12 @@ class AppActivity : AppCompatActivity() {
             // get next question from server
             val question = model.getNextQuestion()
             // fragment transaction with next question
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<QuestionFragment>(R.id.fragment_container)
-                // pass image number and question number
-            }
+            // TODO use navigation to change frag
+//            supportFragmentManager.commit {
+//                setReorderingAllowed(true)
+//                add<QuestionFragment>(R.id.fragment_container)
+//                // pass image number and question number
+//            }
         }
 
     }

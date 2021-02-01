@@ -27,9 +27,9 @@ class QuizViewModel @Inject constructor(
     var status = MutableLiveData<String?>()
 
     init {
-        viewModelScope.launch {
-            prefetchCatImages(MAXIMUM_IMAGE_BUFFER_SIZE)
-        }
+//        viewModelScope.launch {
+//            prefetchCatImages(MAXIMUM_IMAGE_BUFFER_SIZE)
+//        }
     }
 
     // a live data for current question
@@ -88,7 +88,7 @@ class QuizViewModel @Inject constructor(
     }
 
     fun showSinglePlayerSetup() {
-        TODO("Not yet implemented")
+
     }
 
     companion object {
