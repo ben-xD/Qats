@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
+<layout>
     <data>
         <variable
             name="Question"
             type="uk.orth.qats.models.Question" />
+
+        <variable
+            name="CatImage"
+            type="uk.orth.qats.models.CatImage" />
     </data>
-    <FrameLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         tools:context=".quiz.QuestionFragment">
         <!--    <TextView-->
         <!--        android:layout_width="match_parent"-->
@@ -26,5 +32,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@{Question.text}" />
-    </FrameLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/bottom_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

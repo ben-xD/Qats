@@ -9,7 +9,7 @@ import uk.orth.qats.databinding.FragmentAnswerBinding
 
 @AndroidEntryPoint
 class AnswerFragment : Fragment() {
-    lateinit var binding: FragmentAnswerBinding
+    private lateinit var binding: FragmentAnswerBinding
     private val model: QuizViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

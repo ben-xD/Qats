@@ -6,11 +6,13 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import uk.orth.qats.repository.CatImage
+import kotlinx.coroutines.withContext
+import uk.orth.qats.models.*
+import uk.orth.qats.models.Order.RANDOM
 import uk.orth.qats.repository.CatImagesService
 import uk.orth.qats.repository.QuizService
-import uk.orth.qats.models.Question
-import uk.orth.qats.models.Quiz
+import uk.orth.qats.repository.Result
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,14 +22,27 @@ class QuizViewModel @Inject constructor(
 ) : ViewModel() {
     private val quiz: Quiz? = null
     private var catImages = mutableListOf<CatImage>()
-    private var currentQuestionNumber: Int = 0
-    private val questionByNumber = MutableLiveData<Map<Int, Question>>()
+    var currentQuestionNumber: Int = 0
+    private val questionByNumber = mutableMapOf<Int, Question>()
+    var status = MutableLiveData<String?>()
+
+    init {
+        viewModelScope.launch {
+            prefetchCatImages(MAXIMUM_IMAGE_BUFFER_SIZE)
+        }
+    }
 
     // a live data for current question
     // make network request for answer separately (to prevent cheaters network MITM)
     suspend fun getNextQuestion(): Pair<Question, CatImage> {
         currentQuestionNumber += 1
-        return getQuestion(currentQuestionNumber)
+        // TODO make network request
+//        return getQuestion(currentQuestionNumber)
+        val answerOptions = MultipleChoiceTextAnswerOption(listOf("Hello", "Good bye", "3rd answer", "Fourth answer"))
+        return Pair(
+            Question(UUID.randomUUID(), "Example Question", answerOptions),
+            catImages[currentQuestionNumber - 1]
+        )
     }
 
     suspend fun getQuestion(number: Int): Pair<Question, CatImage> {
@@ -38,7 +53,15 @@ class QuizViewModel @Inject constructor(
         if (catImages.size > currentQuestionNumber - MINIMUM_IMAGE_BUFFER_SIZE) {
             prefetchCatImages(currentQuestionNumber + MAXIMUM_IMAGE_BUFFER_SIZE)
         }
-        return Pair(quizService.getQuestion(quiz), catImage)
+        if (number !in questionByNumber.keys) {
+            when (val response = quizService.getQuestion(quiz)) {
+                is Result.Success -> questionByNumber[number] = response.data
+                is Result.Error -> status.postValue("Unable to fetch Question #${number}.")
+            }
+
+        }
+
+        return Pair(questionByNumber[number]!!, catImage)
     }
 
     /**
@@ -47,8 +70,25 @@ class QuizViewModel @Inject constructor(
     suspend fun prefetchCatImages(total: Int) {
         val fetchCount = total - catImages.size
         viewModelScope.launch(Dispatchers.IO) {
-            catImages.addAll(catImagesService.getRandomCatImagesWithoutGifAndHats(fetchCount))
+            catImages.addAll(getRandomCatImagesWithoutGifAndHats(fetchCount))
         }
+    }
+
+    suspend fun getRandomCatImagesWithoutGifAndHats(quantity: Int): List<CatImage> {
+        return withContext(Dispatchers.IO) {
+            when (val response = catImagesService.getCatImages(quantity, order = RANDOM)) {
+                is Result.Success -> response.data.filter { !(it.imageType == ImageType.GIF && !it.categories.contains("hats")) }
+                is Result.Error -> {
+                    status.postValue("Unable to fetch images")
+                    // TODO should i show an error here? edge case/ network is down
+                    emptyList()
+                }
+            }
+        }
+    }
+
+    fun showSinglePlayerSetup() {
+        TODO("Not yet implemented")
     }
 
     companion object {

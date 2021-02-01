@@ -5,8 +5,7 @@ import java.util.*
 
 data class Question(val id: UUID,
                     val text: String,
-                    val answerOption: AnswerOption,
-                    var imageURL: URL
+                    val answerOption: AnswerOption
 )
 
 sealed class AnswerOption

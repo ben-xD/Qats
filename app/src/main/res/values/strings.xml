@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">Qats</string>
+    <!-- TODO XML string interpolation-->
+    <string name="app_logo_description">The Qats logo, which is a hand drawn picture of a cat.</string>
     <string name="title_question_fragment">Question Fragment</string>
+    <string name="title_activity_start_quiz">StartQuiz</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="singleplayer">Singleplayer</string>
+    <string name="multiplayer">Multiplayer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cat_quiz_game">Cat Quiz Game</string>
 </resources>

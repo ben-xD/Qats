@@ -1,11 +1,11 @@
 package uk.orth.qats.repository
 
-import retrofit2.Response
 import retrofit2.Retrofit
 import uk.orth.qats.models.Answer
 import uk.orth.qats.models.Question
 import uk.orth.qats.models.Quiz
 import uk.orth.qats.models.QuizMode
+import uk.orth.qats.repository.utilities.createResult
 import javax.inject.Inject
 
 class QuizService @Inject constructor() {
@@ -19,18 +19,18 @@ class QuizService @Inject constructor() {
         api = retrofit.create(QuizAPI::class.java)
     }
 
-    suspend fun startQuiz(questionQuantity: Int = 0, timePerQuestionInSeconds: Int = 0): Response<Quiz> {
+    suspend fun startQuiz(questionQuantity: Int = 0, timePerQuestionInSeconds: Int = 0): Result<Quiz> {
         val mode = QuizMode(questionQuantity, timePerQuestionInSeconds)
-        return api.createQuiz(mode)
+        return api.createQuiz(mode).createResult()
     }
 
-    suspend fun joinQuiz(quizID: String): Response<Quiz> {
-        return api.joinQuiz(quizID)
+    suspend fun joinQuiz(quizID: String): Result<Quiz> {
+        return api.joinQuiz(quizID).createResult()
     }
 
     // If timed, FCMs will send the message instead.
-    suspend fun getQuestion(quiz: Quiz): Response<Question> {
-        return api.getQuestion(quiz.code)
+    suspend fun getQuestion(quiz: Quiz): Result<Question> {
+        return api.getQuestion(quiz.code).createResult()
     }
 
     /**
@@ -47,3 +47,4 @@ class QuizService @Inject constructor() {
         const val BASE_URL = "https://qats.orth.uk/"
     }
 }
+

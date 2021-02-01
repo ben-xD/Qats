@@ -19,6 +19,7 @@ object Versions {
 }
 
 object Libs {
+    const val material = "1.2.1"
     const val hilt = "1.0.0-alpha03" // https://developer.android.com/jetpack/androidx/releases/hilt
     const val nav = "2.3.3" // https://developer.android.com/jetpack/androidx/releases/navigation
     const val nav_compose = "1.0.0-alpha05"

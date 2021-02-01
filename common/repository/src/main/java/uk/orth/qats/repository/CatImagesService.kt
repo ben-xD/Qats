@@ -1,9 +1,11 @@
 package uk.orth.qats.repository
 
 import kotlinx.coroutines.*
-import retrofit2.Response
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import uk.orth.qats.models.*
+import uk.orth.qats.repository.utilities.EnumFactory
 import javax.inject.Inject
 
 class CatImagesService @Inject constructor() {
@@ -28,20 +30,18 @@ class CatImagesService @Inject constructor() {
         order: Order = Order.ASCENDING,
         categories: List<Category> = emptyList(),
         imageTypes: List<ImageType> = listOf(ImageType.ANY)
-    ): Response<List<CatImage>> {
+    ): Result<List<CatImage>> {
         if (quantity !in 1..100) throw IllegalArgumentException("Can only 1 to 100 (inclusive) images.")
-        return api.getImages(
+        val response = api.getImages(
             quantity,
             quality,
             order,
             imageTypes,
             categories.map { it.id })
-    }
-
-    suspend fun getRandomCatImagesWithoutGifAndHats(quantity: Int): List<CatImage> {
-        return withContext(Dispatchers.IO) {
-            val images = getCatImages(quantity, order = Order.RANDOM).body()
-            images!!.filter { !(it.imageType == ImageType.GIF && !it.categories.contains("hats")) }
+        return if (response.isSuccessful) {
+            Result.Success(response.body()!!)
+        } else {
+            Result.Error(HttpException(response))
         }
     }
 

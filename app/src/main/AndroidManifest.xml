@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".QatsApp"
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,19 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Qats">
         <activity
-            android:name=".quiz.StartQuizActivity"
+            android:name=".quiz.AppActivity"
             android:label="@string/title_activity_start_quiz"
             android:theme="@style/Theme.Qats.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".quiz.QuestionAnswerActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
