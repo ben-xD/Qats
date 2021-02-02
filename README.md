@@ -1,4 +1,7 @@
-# Qats: The quiz game with cat pictures, and sometimes cat questions.
+# Qats: The quiz game with cat pictures, and sometimes cat questions.##
+## PAUSE
+I have currently paused this project, because my M1 mac is being annoyingly slow (unusable) and I don't like using Android Studio on my Ubuntu machine. I hope Android Studio optimized for M1 Silicon comes out soon.
+
 ## Getting started
 - `git clone git@github.com:ben-xD/Qats.git`
 - Open with Android Studio, and run
