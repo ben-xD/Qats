@@ -4,6 +4,7 @@ I have currently paused this project, because my M1 mac is being annoyingly slow
 
 ## Getting started
 - `git clone git@github.com:ben-xD/Qats.git`
+- `studio android` or `studio.sh android` or open with Android Studio **Arctic Fox 2020.3.1 Canary 5** or newer.
 - Open with Android Studio, and run
 
 ## Technology
