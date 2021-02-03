@@ -41,9 +41,11 @@ class ConfigureQuizFragment : Fragment() {
         val questionQuantity =
             binding.edittextQuestionCount.text.toString().toIntOrNull() ?: DEFAULT_QUESTION_QUANTITY
         lifecycleScope.launch(Dispatchers.IO) {
-            model.startQuiz(questionQuantity, timePerQuestionInSeconds)
-            model.quiz?.let {
-                navController.navigate(ConfigureQuizFragmentDirections.actionConfigureQuizFragmentToQuestionFragment())
+//            async {model.startQuiz(questionQuantity, timePerQuestionInSeconds)}.await()?.let {
+            withContext(coroutineContext) { model.startQuiz(questionQuantity, timePerQuestionInSeconds)}?.let {
+                lifecycleScope.launch(Dispatchers.Main) {
+                    navController.navigate(ConfigureQuizFragmentDirections.actionConfigureQuizFragmentToQuestionFragment())
+                }
             }
         }
     }

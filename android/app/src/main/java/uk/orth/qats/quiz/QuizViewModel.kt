@@ -4,9 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import uk.orth.qats.models.*
 import uk.orth.qats.models.Order.RANDOM
 import uk.orth.qats.repository.CatImagesService
@@ -20,24 +18,25 @@ class QuizViewModel @Inject constructor(
     private val catImagesService: CatImagesService,
     private val quizService: QuizService,
 ) : ViewModel() {
-    var quiz: Quiz? = null
+    private var quiz: Quiz? = null
         private set
     private var catImages = mutableListOf<CatImage>()
     var currentQuestionNumber: Int = 0
     private val questionByNumber = mutableMapOf<Int, Question>()
     var status = MutableLiveData<String?>()
 
-    init {
-//        viewModelScope.launch {
-//            prefetchCatImages(MAXIMUM_IMAGE_BUFFER_SIZE)
-//        }
-    }
-
-    suspend fun startQuiz(questionQuantity: Int, timePerQuestionInSeconds: Int) {
-        viewModelScope.launch {
-            when (val result = quizService.startQuiz(questionQuantity, timePerQuestionInSeconds)) {
-                is Result.Success -> quiz = result.data
-                is Result.Error -> status.postValue("Unable to start quiz.")
+    // TODO how to pass value out of startQuiz?
+    suspend fun startQuiz(questionQuantity: Int, timePerQuestionInSeconds: Int): Quiz? {
+//        quiz = Quiz("CODE", emptyList())
+//        return quiz
+        return when (val result = quizService.startQuiz(questionQuantity, timePerQuestionInSeconds)) {
+            is Result.Success -> {
+                quiz = result.data
+                quiz
+            }
+            is Result.Error -> {
+                status.postValue("Unable to start quiz.")
+                null
             }
         }
     }
