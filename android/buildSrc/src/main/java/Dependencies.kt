@@ -27,7 +27,7 @@ object Libs {
     const val junit = "4.13.1"
     const val retrofit = "2.9.0"
     const val gson = "2.8.6"
-    const val timber = "4.7.1"
     const val fragment = "1.2.5"
     const val coroutines = "1.3.9"
+    const val glide = "4.11.0"
 }

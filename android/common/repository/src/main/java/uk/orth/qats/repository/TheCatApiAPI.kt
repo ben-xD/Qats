@@ -6,10 +6,10 @@ import retrofit2.http.Query
 import uk.orth.qats.models.*
 
 interface TheCatApiAPI {
-    @GET("/categories")
+    @GET("categories")
     suspend fun getCategories(): Response<List<Category>>
 
-    @GET("/images/search")
+    @GET("images/search")
     @JvmSuppressWildcards
     suspend fun getImages(@Query("limit") quantity: Int,
                           @Query("size") quality: Quality,

@@ -16,6 +16,9 @@ dependencies {
     // --- Hilt ---
     implementation("com.google.dagger:hilt-android:${Versions.hilt}")
     kapt("com.google.dagger:hilt-android-compiler:${Versions.hilt}")
+
+    // --- Testing ---
+    testImplementation("junit:junit:${Libs.junit}")
 }
 
 java {

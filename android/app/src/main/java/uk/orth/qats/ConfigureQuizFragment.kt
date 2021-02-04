@@ -1,6 +1,7 @@
 package uk.orth.qats
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.*
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import uk.orth.qats.databinding.FragmentConfigureQuizBinding
 import uk.orth.qats.quiz.QuizViewModel
+import uk.orth.qats.repository.Result
+
+private val TAG = ConfigureQuizFragment::class.java.name
 
 class ConfigureQuizFragment : Fragment() {
     private val navController by lazy { findNavController() }
@@ -40,11 +45,14 @@ class ConfigureQuizFragment : Fragment() {
         }
         val questionQuantity =
             binding.edittextQuestionCount.text.toString().toIntOrNull() ?: DEFAULT_QUESTION_QUANTITY
-        lifecycleScope.launch(Dispatchers.IO) {
-//            async {model.startQuiz(questionQuantity, timePerQuestionInSeconds)}.await()?.let {
-            withContext(coroutineContext) { model.startQuiz(questionQuantity, timePerQuestionInSeconds)}?.let {
-                lifecycleScope.launch(Dispatchers.Main) {
-                    navController.navigate(ConfigureQuizFragmentDirections.actionConfigureQuizFragmentToQuestionFragment())
+
+        lifecycleScope.launch {
+            when (val result = model.startQuiz(questionQuantity, timePerQuestionInSeconds)) {
+                is Result.Success -> navController.navigate(ConfigureQuizFragmentDirections.actionConfigureQuizFragmentToQuestionFragment())
+                is Result.Error -> {
+                    // long snackbar with try again button?
+                    Log.w(TAG, result.exception)
+                    model.toastMessage.postValue("We had a problem starting that quiz.")
                 }
             }
         }

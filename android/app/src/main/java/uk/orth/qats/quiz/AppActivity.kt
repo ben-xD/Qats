@@ -22,10 +22,10 @@ class AppActivity : AppCompatActivity() {
         binding = ActivityAppBinding.inflate(layoutInflater)
         binding.handler = quizHandlers
 
-        model.status.observe(this, {
+        model.toastMessage.observe(this, {
             it?.let {
                 Toast.makeText(this, it, Toast.LENGTH_LONG).show()
-                model.status.value = null
+                model.toastMessage.value = null
             }
         })
     }

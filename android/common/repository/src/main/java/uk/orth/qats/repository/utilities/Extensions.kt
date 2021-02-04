@@ -16,3 +16,7 @@ fun <T : Any> Response<T>.createResult(): Result<T> {
         Result.Error(HttpException(this))
     }
 }
+
+fun Exception.createResult(): Result.Error {
+    return Result.Error(this)
+}

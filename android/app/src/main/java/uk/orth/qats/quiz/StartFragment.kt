@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import uk.orth.qats.R
 import uk.orth.qats.databinding.FragmentStartBinding
 
@@ -31,5 +32,9 @@ class StartFragment : Fragment() {
             navController.navigate(StartFragmentDirections.actionStartFragmentToConfigureQuizFragment())
 //            model.showSinglePlayerSetup()
         }
+
+        Glide.with(this).load("https://scitechdaily.com/images/Cat-COVID-19-Mask.jpg")
+            .fitCenter()
+            .into(binding.logo)
     }
 }

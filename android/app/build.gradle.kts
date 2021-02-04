@@ -93,9 +93,6 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Libs.compose}")
 
     // --- Images ---
-    implementation("com.github.bumptech.glide:glide:4.11.0")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.11.0")
-
-    // --- Logging ---
-    implementation("com.jakewharton.timber:timber:${Libs.timber}")
+    implementation("com.github.bumptech.glide:glide:${Libs.glide}")
+    annotationProcessor("com.github.bumptech.glide:compiler:${Libs.glide}")
 }
